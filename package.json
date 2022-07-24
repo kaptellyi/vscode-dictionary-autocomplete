@@ -1,0 +1,92 @@
+{
+  "name": "dictionaryAutocomplete",
+  "displayName": "Dictionary Autocomplete",
+  "description": "Provide autocompletions following your dictionaries",
+  "icon": "media/icon.png",
+  "publisher": "thisisiriya",
+  "version": "0.0.3",
+  "engines": {
+    "vscode": "^1.67.0"
+  },
+  "categories": [
+    "Other"
+  ],
+  "activationEvents": [
+    "onStartupFinished"
+  ],
+  "main": "./dist/extension.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/kaptellyi/vscode-dictionary-autocomplete"
+  },
+  "contributes": {
+    "configuration": {
+      "title": "Dictionary autocomplete",
+      "properties": {
+        "dictionaryAutocomplete.dictionary.dictionariesFolder": {
+          "type": "string",
+          "description": "Absolute path to dictionaries folder"
+        },
+        "dictionaryAutocomplete.dictionary.dictionaries": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "Dictionary names you want to get suggestions from \n\n**Important:** do not use file extension"
+        },
+        "dictionaryAutocomplete.methods": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "markdownDescription": "Method names you will use to retrieve autocompletions"
+        },
+        "dictionaryAutocomplete.options.maxLength": {
+          "type": "number",
+          "default": 40,
+          "description": "The number to restrict autocomplete item by max characters length"
+        }
+      }
+    },
+    "commands": [
+      {
+        "command": "dictionaryAutocomplete.parseDictionaries",
+        "title": "Parse dictionaries"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "yarn run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "yarn run compile-tests && yarn run compile && yarn run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/glob": "^7.2.0",
+    "@types/js-yaml": "^4.0.5",
+    "@types/mocha": "^9.1.1",
+    "@types/node": "16.x",
+    "@types/object-path": "^0.11.1",
+    "@types/vscode": "^1.67.0",
+    "@typescript-eslint/eslint-plugin": "^5.27.0",
+    "@typescript-eslint/parser": "^5.27.0",
+    "@vscode/test-electron": "^2.1.3",
+    "eslint": "^8.16.0",
+    "glob": "^8.0.3",
+    "mocha": "^10.0.0",
+    "ts-loader": "^9.3.0",
+    "typescript": "^4.7.2",
+    "webpack": "^5.72.1",
+    "webpack-cli": "^4.9.2"
+  },
+  "dependencies": {
+    "filter-obj": "^3.0.0",
+    "js-yaml": "^4.1.0",
+    "object-path": "^0.11.8"
+  }
+}
